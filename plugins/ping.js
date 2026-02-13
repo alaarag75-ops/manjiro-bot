@@ -1,21 +1,31 @@
 module.exports = {
-    command: ["ping", ".ping", "بنج"], // أوامر متعددة
+    command: "بينج",
     description: "فحص سرعة البوت",
+    aliases: ["ping", "بنج", "سرعة"],
+    
     async execute(sock, msg, args) {
-        const from = msg.key.remoteJid;
-
-        // وقت البداية
         const start = Date.now();
-
-        // إرسال رسالة مؤقتة
-        const sentMsg = await sock.sendMessage(from, { text: "⏳ جاري قياس سرعة البوت..." });
-
-        // حساب التأخير
+        await sock.sendMessage(msg.key.remoteJid, {
+            text: "`⏳ ║ جـاري قـيـاس سـرعـة الـبـوت...`"
+        });
+        
         const latency = Date.now() - start;
 
-        // حذف الرسالة السابقة وإظهار النتيجة
-        await sock.sendMessage(from, {
-            text: `🏓 Pong!\nسرعة البوت: ${latency}ms`
+        // تحويل وقت التشغيل
+        const uptime = process.uptime();
+        const hours = Math.floor(uptime / 3600);
+        const minutes = Math.floor((uptime % 3600) / 60);
+        const seconds = Math.floor(uptime % 60);
+
+        await sock.sendMessage(msg.key.remoteJid, {
+            text:
+`╭━━━〔 🏓 𝑷𝑶𝑵𝑮 〕━━━⬣
+┃ ⚡ *السـرعـة ↜ ${latency}ms*
+┃ ⏱️ *وقـت الـتـشـغـيـل ↜ ${hours}h ${minutes}m ${seconds}s*
+┃ 💾 *الـذاكـرة ↜ ${Math.round(process.memoryUsage().rss / 1024 / 1024)}MB*
+┃ 🖥️ *الـنـظـام ↜ ${process.platform}*
+╰━━━━━━━━━━━━⬣
+✦ 𝑻𝑨𝑬𝑯𝑨 𝑩𝑶𝑻 ✦`
         });
     }
 };
