@@ -1,0 +1,21 @@
+{
+  "name": "taeha-bot",
+  "version": "1.0.0",
+  "description": "WhatsApp Bot Using Baileys-Pro",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "taeha",
+  "license": "MIT",
+  "dependencies": {
+    "baileys-pro": "latest",
+    "pino": "^8.17.0",
+    "fs-extra": "^11.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  }
+}
